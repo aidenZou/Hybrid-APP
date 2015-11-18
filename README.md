@@ -15,3 +15,10 @@
 ## webapp
 
 > web 页面目录
+
+# Thanks
+- [WebViewJavascriptBridge](https://github.com/marcuswestin/WebViewJavascriptBridge)
+- [Hybrid](https://github.com/yexiaochai/Hybrid)
+
+# License
+- MIT

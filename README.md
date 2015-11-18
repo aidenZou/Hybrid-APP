@@ -20,6 +20,7 @@
 
   - [Welcome](https://github.com/aidenzou/Hybrid-APP/issues/1)
   - [需求清单](https://github.com/aidenzou/Hybrid-APP/issues/2)
+  - [测试页面](http://aidenzou.github.io/Hybrid-APP/)
 
 ### DOC
 

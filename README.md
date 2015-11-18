@@ -21,6 +21,9 @@
   - [Welcome](https://github.com/aidenzou/Hybrid-APP/issues/1)
   - [需求清单](https://github.com/aidenzou/Hybrid-APP/issues/2)
 
+### DOC
+
+  - [文档](https://github.com/aidenzou/Hybrid-APP/blob/master/doc.md)
 
 ### Thanks
 

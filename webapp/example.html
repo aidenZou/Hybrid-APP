@@ -43,10 +43,9 @@
 <div id='log'></div>
 
 <div class="api_form">
-    <input class="btn btn_primary" type="button" value="分享Share"/>
+    <input class="btn btn_primary" type="button" id="shareBtn" value="分享Share"/>
     <!--<button class="btn btn_primary" id="shareBtn">分享Share</button>-->
 </div>
-
 
 <script>
 
@@ -131,15 +130,16 @@
             })
         }
 
-        // 分享
+        //main();
         document.getElementById('shareBtn').onclick = function (e) {
             e.preventDefault()
             log('JS calling handler "shareCallback"')
+
             bridge.callHandler('shareCallback', {
-                title: 'Hybrid-APP 分享功能演示',                                 // 分享标题
-                desc: '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与',     // 分享描述
-                link: 'https://github.com/aidenzou/Hybrid-APP',                 // 分享链接
-                imgUrl: 'https://avatars1.githubusercontent.com/u/6814750',     // 分享图标
+                'title': 'Hybrid-APP 分享功能演示',                                 // 分享标题
+                'desc': '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与',     // 分享描述
+                'link': 'https://github.com/aidenzou/Hybrid-APP',                 // 分享链接
+                'imgUrl': 'https://avatars1.githubusercontent.com/u/6814750',     // 分享图标
             }, function (response) {
                 //alert(response)
                 //alert(response.key)
@@ -147,6 +147,27 @@
             })
         }
     })
+
+//    function main() {
+//        //alert(document.getElementById('shareBtn'))
+//        // 分享
+//        document.getElementById('shareBtn').onclick = function (e) {
+//            e.preventDefault()
+//            log('JS calling handler "shareCallback"')
+//
+//            bridge.callHandler('shareCallback', {
+//                'title': 'Hybrid-APP 分享功能演示',                                 // 分享标题
+//                'desc': '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与',     // 分享描述
+//                'link': 'https://github.com/aidenzou/Hybrid-APP',                 // 分享链接
+//                'imgUrl': 'https://avatars1.githubusercontent.com/u/6814750',     // 分享图标
+//            }, function (response) {
+//                //alert(response)
+//                //alert(response.key)
+//                log('JS got response', response)
+//            })
+//        }
+//    }
+
 </script>
 
 </body>

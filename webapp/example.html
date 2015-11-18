@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>WebViewJavascriptBridge Demo</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="style/style.css">
 
     <style type='text/css'>
         html {
@@ -21,6 +23,10 @@
             font-size: 12px;
         }
 
+        /*.btn{*/
+        /*background-color: green;*/
+        /*}*/
+
         .logLine {
             border-bottom: 1px solid #ccc;
             padding: 4px 2px;
@@ -32,7 +38,33 @@
 <body>
 
 <h1>WebViewJavascriptBridge Demo</h1>
+
+<div id='buttons'></div>
+<div id='log'></div>
+
+<div class="api_form">
+    <input class="btn btn_primary" type="button" value="分享Share"/>
+    <!--<button class="btn btn_primary" id="shareBtn">分享Share</button>-->
+</div>
+
+
 <script>
+
+    var uniqueId = 1
+
+    function log(message, data) {
+        var log = document.getElementById('log')
+        var el = document.createElement('div')
+        el.className = 'logLine'
+        el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
+        if (log.children.length) {
+            log.insertBefore(el, log.children[0])
+        }
+        else {
+            log.appendChild(el)
+        }
+    }
+
     window.onerror = function (err) {
         log('window.onerror: ' + err)
     }
@@ -48,20 +80,6 @@
     }
 
     connectWebViewJavascriptBridge(function (bridge) {
-        var uniqueId = 1
-
-        function log(message, data) {
-            var log = document.getElementById('log')
-            var el = document.createElement('div')
-            el.className = 'logLine'
-            el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
-            if (log.children.length) {
-                log.insertBefore(el, log.children[0])
-            }
-            else {
-                log.appendChild(el)
-            }
-        }
 
         bridge.init(function (message, responseCallback) {
             log('JS got a message', message)
@@ -112,10 +130,24 @@
                 log('JS got response', response)
             })
         }
+
+        // 分享
+        document.getElementById('shareBtn').onclick = function (e) {
+            e.preventDefault()
+            log('JS calling handler "shareCallback"')
+            bridge.callHandler('shareCallback', {
+                title: 'Hybrid-APP 分享功能演示',                                 // 分享标题
+                desc: '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与',     // 分享描述
+                link: 'https://github.com/aidenzou/Hybrid-APP',                 // 分享链接
+                imgUrl: 'https://avatars1.githubusercontent.com/u/6814750',     // 分享图标
+            }, function (response) {
+                //alert(response)
+                //alert(response.key)
+                log('JS got response', response)
+            })
+        }
     })
 </script>
-<div id='buttons'></div>
-<div id='log'></div>
 
 </body>
 </html>

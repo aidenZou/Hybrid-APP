@@ -112,23 +112,23 @@
 
         // document.body.appendChild(document.createElement('br'))
 
-        var callbackButton = document.getElementById('buttons').appendChild(document.createElement('button'))
-        callbackButton.innerHTML = 'Fire testObjcCallback'
-        callbackButton.onclick = function (e) {
-            e.preventDefault()
-            log('JS calling handler "testObjcCallback"')
-            bridge.callHandler('testObjcCallback', {'foo': 'bar'}, function (response) {
-                log('JS got response', response)
-            })
+        // var callbackButton = document.getElementById('buttons').appendChild(document.createElement('button'))
+        // callbackButton.innerHTML = 'Fire testObjcCallback'
+        // callbackButton.onclick = function (e) {
+        //     e.preventDefault()
+        //     log('JS calling handler "testObjcCallback"')
+        //     bridge.callHandler('testObjcCallback', {'foo': 'bar'}, function (response) {
+        //         log('JS got response', response)
+        //     })
 
-            bridge.callHandler('addCartCallback', {'id': 1, 'count': 2}, function (response) {
+        //     bridge.callHandler('addCartCallback', {'id': 1, 'count': 2}, function (response) {
 
-                alert(response)
-                alert(response.key)
+        //         alert(response)
+        //         alert(response.key)
 
-                log('JS got response', response)
-            })
-        }
+        //         log('JS got response', response)
+        //     })
+        // }
 
         //main();
         document.getElementById('shareBtn').onclick = function (e) {

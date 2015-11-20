@@ -37,7 +37,6 @@
 		5BCD81101BFEF0B10023DB3C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCD810F1BFEF0B10023DB3C /* CoreTelephony.framework */; };
 		5BCD81121BFEF20C0023DB3C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCD81111BFEF20C0023DB3C /* libz.tbd */; };
 		5BCD81151BFEF6AB0023DB3C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCD81141BFEF6AB0023DB3C /* ImageIO.framework */; };
-		5BCD812C1BFF1A9E0023DB3C /* UIAlertView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCD812B1BFF1A9E0023DB3C /* UIAlertView+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,8 +94,6 @@
 		5BCD81111BFEF20C0023DB3C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5BCD81131BFEF3910023DB3C /* Js&Webview.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Js&Webview.pch"; sourceTree = "<group>"; };
 		5BCD81141BFEF6AB0023DB3C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		5BCD812A1BFF1A9E0023DB3C /* UIAlertView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Extension.h"; sourceTree = "<group>"; };
-		5BCD812B1BFF1A9E0023DB3C /* UIAlertView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Extension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,8 +143,6 @@
 				5B0662731BFDAA1D007D4C9A /* MainViewController.m */,
 				5B0662851BFDBCEB007D4C9A /* DetailViewController.h */,
 				5B0662861BFDBCEB007D4C9A /* DetailViewController.m */,
-				5BCD812A1BFF1A9E0023DB3C /* UIAlertView+Extension.h */,
-				5BCD812B1BFF1A9E0023DB3C /* UIAlertView+Extension.m */,
 				5B0662671BFDAA09007D4C9A /* Assets.xcassets */,
 				5B0662691BFDAA09007D4C9A /* LaunchScreen.storyboard */,
 				5B06626C1BFDAA09007D4C9A /* Info.plist */,
@@ -345,7 +340,6 @@
 				5B0662661BFDAA09007D4C9A /* AppDelegate.m in Sources */,
 				5B0662741BFDAA1D007D4C9A /* MainViewController.m in Sources */,
 				5B0662631BFDAA09007D4C9A /* main.m in Sources */,
-				5BCD812C1BFF1A9E0023DB3C /* UIAlertView+Extension.m in Sources */,
 				5B0662831BFDAA76007D4C9A /* WebViewJavascriptBridgeBase.m in Sources */,
 				5B0662821BFDAA76007D4C9A /* WebViewJavascriptBridge.m in Sources */,
 				5B0662841BFDAA76007D4C9A /* WKWebViewJavascriptBridge.m in Sources */,

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebViewJavascriptBridge Demo</title>
+    <meta name="viewport"
+          content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="style/style.css">
+
+    <style type='text/css'>
+        html {
+        font-family: Helvetica;
+        color: #222;
+        }
+        h1 {
+        color: steelblue;
+        font-size: 24px;
+        margin-top: 24px;
+        }
+        button {
+        margin: 0 3px 10px;
+        font-size: 12px;
+        }
+        /*.btn{*/
+        /*background-color: green;*/
+        /*}*/
+        .logLine {
+        border-bottom: 1px solid #ccc;
+        padding: 4px 2px;
+        font-family: courier;
+        font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>WebViewJavascriptBridge Demo</h1>
+
+<div id='buttons'></div>
+<div id='log'></div>
+
+<div class="api_form">
+    <input class="btn btn_primary" type="button" id="shareBtn" value="分享Share"/>
+    <!--<button class="btn btn_primary" id="shareBtn">分享Share</button>-->
+</div>
+
+<p id="mytext">Hello!</p>
+
+<script>
+<!--被Android调用-->
+    function shareSuccess(msg){
+    //来自Android的json对象
+    document.getElementById("mytext").innerHTML = msg.key;
+   }
+
+        document.getElementById('shareBtn').onclick = function (e) {
+            e.preventDefault()
+            log('调用Android方法')
+            var json1 = "{'title': 'Hybrid-APP 分享功能演示','desc': '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与','link': 'https://github.com/aidenzou/Hybrid-APP','imgUrl': 'https://avatars1.githubusercontent.com/u/6814750'}";
+           var result = bridge.callHandler(json1);
+           alert(result);
+        }
+
+        var uniqueId = 1
+    function log(message, data) {
+        var log = document.getElementById('log')
+        var el = document.createElement('div')
+        el.className = 'logLine'
+        el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
+        if (log.children.length) {
+            log.insertBefore(el, log.children[0])
+        }
+        else {
+            log.appendChild(el)
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

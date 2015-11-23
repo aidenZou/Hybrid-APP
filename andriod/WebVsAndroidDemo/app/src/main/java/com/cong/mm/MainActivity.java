@@ -138,17 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("jsonexception", e.getLocalizedMessage());
             }
             final String s = value;
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    ShareContent sharecontent = new ShareContent();
-                    sharecontent.setImageId(R.mipmap.ic_launcher);
-                    sharecontent.setTargetUrl("https://youcai.shequcun.com/?state=recomitem/1");
-                    sharecontent.setTitle("有菜，不能说的秘密！");
-                    sharecontent.setContent("孩子的餐桌我们的标准，走心，连蔬菜都这么有bigger！");
-                    ShareManager.shareByFrame(MainActivity.this, sharecontent);
-                }
-            });
+            share();
             //线程等待分享
             synchronized (nObject) {
                 try {
@@ -172,18 +162,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void share() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ShareContent sharecontent = new ShareContent();
+                sharecontent.setImageId(R.mipmap.ic_launcher);
+                sharecontent.setTargetUrl("https://youcai.shequcun.com/?state=recomitem/1");
+                sharecontent.setTitle("有菜，不能说的秘密！");
+                sharecontent.setContent("孩子的餐桌我们的标准，走心，连蔬菜都这么有bigger！");
+                ShareManager.shareByFrame(MainActivity.this, sharecontent, new ShareManager.CancelOnTouchOutside() {
+                    @Override
+                    public void onCancel() {
+                        myJavaScriptInterface.result = "分享取消";
+                        notifyJsComplete();
+                    }
+                });
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(shareBroadcastReceiver);
         //释放js
-        notifyJs();
+        notifyJsComplete();
     }
 
     /**
      * 唤醒js线程
      */
-    private void notifyJs() {
+    private void notifyJsComplete() {
         if (myJavaScriptInterface.nObject != null)
             synchronized (myJavaScriptInterface.nObject) {
                 myJavaScriptInterface.nObject.notifyAll();
@@ -204,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             int errCode = intent.getIntExtra("errCode", 0);
             Toast.makeText(MainActivity.this, result + errCode, Toast.LENGTH_LONG).show();
             myJavaScriptInterface.result = result;
-            notifyJs();
+            notifyJsComplete();
 
         }
     };

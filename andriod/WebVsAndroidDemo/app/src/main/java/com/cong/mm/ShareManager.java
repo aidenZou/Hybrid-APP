@@ -3,6 +3,7 @@ package com.cong.mm;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -97,7 +98,7 @@ public class ShareManager {
      * * @param context
      * * @param shareContent
      */
-    public void popShareFrame(Context context, final ShareContent shareContent) {
+    public void popShareFrame(Context context, final ShareContent shareContent, final CancelOnTouchOutside cancelOnTouchOutside) {
         this.context = context;
         this.shareContent = shareContent;
         final AlertDialog alert = new AlertDialog.Builder(context).create();
@@ -107,6 +108,13 @@ public class ShareManager {
         alert.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         alert.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         alert.getWindow().setContentView(R.layout.prompt_share_frame);
+        alert.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (cancelOnTouchOutside != null)
+                    cancelOnTouchOutside.onCancel();
+            }
+        });
         alert.getWindow().findViewById(R.id.wxTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +152,12 @@ public class ShareManager {
 
     public static void shareByFrame(Context context, ShareContent shareContent) {
         ShareManager shareManager = ShareManager.getInstance();
-        shareManager.popShareFrame(context, shareContent);
+        shareManager.popShareFrame(context, shareContent, null);
+    }
+
+    public static void shareByFrame(Context context, ShareContent shareContent, CancelOnTouchOutside cancelOnTouchOutside) {
+        ShareManager shareManager = ShareManager.getInstance();
+        shareManager.popShareFrame(context, shareContent, cancelOnTouchOutside);
     }
 
     enum Platform {
@@ -202,5 +215,9 @@ public class ShareManager {
                 shareToWx(context, shareContent, true);
                 break;
         }
+    }
+
+    interface CancelOnTouchOutside {
+        void onCancel();
     }
 }

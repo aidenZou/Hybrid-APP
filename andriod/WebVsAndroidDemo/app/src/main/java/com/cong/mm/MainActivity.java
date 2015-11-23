@@ -1,12 +1,12 @@
-package com.shequcun.ucai.webvsandroiddemo;
+package com.cong.mm;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -15,15 +15,18 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.cong.mm.wxapi.WXEntryActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private WebView webView;
     private String url = "file:///android_asset/sample/sample.html";
-//    private String url = "https://github.com/aidenzou/Hybrid-APP/blob/master/webapp/example.html";
+    //    private String url = "https://github.com/aidenzou/Hybrid-APP/blob/master/webapp/example.html";
 //    private String url = "www.baidu.com";
 //    private String url = "http://beta.html5test.com/";
+    private MyJavaScriptInterface myJavaScriptInterface = new MyJavaScriptInterface();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         addWebViewClient();
         addJavaScriptInterface();
         loadUrl();
+        registShareBroadcast();
     }
 
     private void enableJavaScript() {
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addJavaScriptInterface() {
         /**js调用Android*/
-        webView.addJavascriptInterface(new MyJavaScriptInterface(), "bridge");
+        webView.addJavascriptInterface(myJavaScriptInterface, "bridge");
     }
 
     private void addWebViewClient() {
@@ -113,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
      */
     class MyJavaScriptInterface {
         Object nObject = new Object();
+        private String result;
+
         /**
          * api 17 or higher 必须要用@JavascriptInterface
          * 因为这个接口允许JavaScript 控制宿主应用程序，这是个很强大的特性，但同时，在4.2的版本前存在重大安全隐患，
@@ -135,11 +141,22 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(MainActivity.this,MainActivity.class));
+                    ShareContent sharecontent = new ShareContent();
+                    sharecontent.setImageId(R.mipmap.ic_launcher);
+                    sharecontent.setTargetUrl("https://youcai.shequcun.com/?state=recomitem/1");
+                    sharecontent.setTitle("有菜，不能说的秘密！");
+                    sharecontent.setContent("孩子的餐桌我们的标准，走心，连蔬菜都这么有bigger！");
+                    ShareManager.shareByFrame(MainActivity.this, sharecontent);
                 }
             });
-            //等待
-            nObject.notify();
+            //线程等待分享
+            synchronized (nObject) {
+                try {
+                    nObject.wait();
+                } catch (InterruptedException e) {
+                    result = e.getLocalizedMessage();
+                }
+            }
 //            runOnUiThread(new Runnable() {
 //                @Override
 //                public void run() {
@@ -151,7 +168,44 @@ public class MainActivity extends AppCompatActivity {
 //                    webView.setVisibility(View.VISIBLE);
 //                }
 //            });
-            return "call ok";
+            return result;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(shareBroadcastReceiver);
+        //释放js
+        notifyJs();
+    }
+
+    /**
+     * 唤醒js线程
+     */
+    private void notifyJs() {
+        if (myJavaScriptInterface.nObject != null)
+            synchronized (myJavaScriptInterface.nObject) {
+                myJavaScriptInterface.nObject.notifyAll();
+            }
+    }
+
+    private void registShareBroadcast() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WXEntryActivity.BROADCAST_SHARE);
+        registerReceiver(shareBroadcastReceiver, filter);
+    }
+
+    private BroadcastReceiver shareBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent == null) return;
+            String result = intent.getStringExtra("result");
+            int errCode = intent.getIntExtra("errCode", 0);
+            Toast.makeText(MainActivity.this, result + errCode, Toast.LENGTH_LONG).show();
+            myJavaScriptInterface.result = result;
+            notifyJs();
+
+        }
+    };
 }

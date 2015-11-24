@@ -167,6 +167,10 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (WXEntryActivity.isWxInstalled(MainActivity.this) == false) {
+                    notifyJsComplete("微信没有被安装");
+                    return;
+                }
                 ShareContent sharecontent = new ShareContent();
                 sharecontent.setImageId(R.mipmap.ic_launcher);
                 sharecontent.setTargetUrl("https://youcai.shequcun.com/?state=recomitem/1");
@@ -175,8 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 ShareManager.shareByFrame(MainActivity.this, sharecontent, new ShareManager.CancelOnTouchOutside() {
                     @Override
                     public void onCancel() {
-                        myJavaScriptInterface.result = "分享取消";
-                        notifyJsComplete();
+                        notifyJsComplete("分享取消");
                     }
                 });
             }
@@ -188,13 +191,14 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         unregisterReceiver(shareBroadcastReceiver);
         //释放js
-        notifyJsComplete();
+        notifyJsComplete(null);
     }
 
     /**
      * 唤醒js线程
      */
-    private void notifyJsComplete() {
+    private void notifyJsComplete(String result) {
+        myJavaScriptInterface.result = result;
         if (myJavaScriptInterface.nObject != null)
             synchronized (myJavaScriptInterface.nObject) {
                 myJavaScriptInterface.nObject.notifyAll();
@@ -214,9 +218,7 @@ public class MainActivity extends AppCompatActivity {
             String result = intent.getStringExtra("result");
             int errCode = intent.getIntExtra("errCode", 0);
             Toast.makeText(MainActivity.this, result + errCode, Toast.LENGTH_LONG).show();
-            myJavaScriptInterface.result = result;
-            notifyJsComplete();
-
+            notifyJsComplete(result);
         }
     };
 }

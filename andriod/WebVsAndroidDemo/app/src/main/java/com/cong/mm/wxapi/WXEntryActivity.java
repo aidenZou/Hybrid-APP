@@ -88,4 +88,8 @@ public class WXEntryActivity extends FragmentActivity implements IWXAPIEventHand
         context.sendBroadcast(intent);
     }
 
+    public static boolean isWxInstalled(Context context) {
+        return WXAPIFactory.createWXAPI(context, ShareManager.appId, false).isWXAppInstalled();
+    }
+
 }

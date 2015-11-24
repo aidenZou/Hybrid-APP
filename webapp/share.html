@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>分享</title>
@@ -11,15 +11,18 @@
             font-family: Helvetica;
             color: #222;
         }
+
         h1 {
             color: steelblue;
             font-size: 24px;
             margin-top: 24px;
         }
+
         button {
             margin: 0 3px 10px;
             font-size: 12px;
         }
+
         /*.btn{*/
         /*background-color: green;*/
         /*}*/
@@ -43,64 +46,36 @@
     <!--<button class="btn btn_primary" id="shareBtn">分享Share</button>-->
 </div>
 
+<script type="text/javascript" src="./script/util.js"></script>
+<script type="text/javascript" src="./script/jssdk.js"></script>
+
 <script>
-    var uniqueId = 1
-    function log(message, data) {
-        return false;
-        var log = document.getElementById('log')
-        var el = document.createElement('div')
-        el.className = 'logLine'
-        el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
-        if (log.children.length) {
-            log.insertBefore(el, log.children[0])
-        }
-        else {
-            log.appendChild(el)
-        }
+    //IOS初始化完毕调用
+    function bridgeInit(bridge) {
+        log('init', 'init')
     }
-    window.onerror = function (err) {
-        log('window.onerror: ' + err)
-    }
-    function connectWebViewJavascriptBridge(callback) {
-        if (window.WebViewJavascriptBridge) {
-            callback(WebViewJavascriptBridge)
-        } else {
-            document.addEventListener('WebViewJavascriptBridgeReady', function () {
-                callback(WebViewJavascriptBridge)
-            }, false)
-        }
-    }
-    connectWebViewJavascriptBridge(function (bridge) {
-        bridge.init(function (message, responseCallback) {
-            log('JS got a message', message)
-            var data = {'Javascript Responds': 'Wee!'}
-            log('JS responding with', data)
-            responseCallback(data)
-        })
-        bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
-            //alert('testJavascriptHandler');
-            //alert(data.foo);
-            console.log(data);
-            log('ObjC called testJavascriptHandler with', data)
-            var responseData = {'Javascript Says': 'Right back atcha!'}
-            log('JS responding with', responseData)
-            responseCallback(responseData)
-        })
+
+    window.onload = function () {
+        log('init...', {'UA': navigator.userAgent})
+
         document.getElementById('shareBtn').onclick = function (e) {
             e.preventDefault()
-            log('JS calling handler "shareCallback"')
-            bridge.callHandler('shareCallback', {
+            log('调用Share方法')
+
+            var data = {
                 'title': 'Hybrid-APP 分享功能演示',                                 // 分享标题
                 'desc': '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与',     // 分享描述
                 'link': 'https://github.com/aidenzou/Hybrid-APP',                 // 分享链接
                 'imgUrl': 'https://avatars1.githubusercontent.com/u/6814750',     // 分享图标
-            }, function (response) {
-                //alert(response)
-                //alert(response.key)
-                log('JS got response', response)
-            })
+                success: function () {
+                    alert(1);
+                }
+            };
+
+            bridgeSDK.share(data);
         }
-    })
+    };
+
 </script>
 
 </body>

@@ -11,7 +11,6 @@
 #import <WebKit/WebKit.h>
 #import "WKWebViewJavascriptBridge.h"
 #import "UMSocial.h"
-#import "UIAlertView+Extension.h"
 #import "UMSocialWechatHandler.h"
 
 //define

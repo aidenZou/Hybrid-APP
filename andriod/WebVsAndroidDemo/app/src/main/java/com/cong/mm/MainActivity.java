@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private WebView webView;
-    private String url = "file:///android_asset/sample/sample.html";
+    private String url = "http://aidenzou.github.io/Hybrid-APP/share.html";
     //    private String url = "https://github.com/aidenzou/Hybrid-APP/blob/master/webapp/example.html";
 //    private String url = "www.baidu.com";
 //    private String url = "http://beta.html5test.com/";
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private void enableJavaScript() {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setAppCacheEnabled(false);
     }
 
     private void addJavaScriptInterface() {

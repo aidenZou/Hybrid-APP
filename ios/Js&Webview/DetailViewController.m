@@ -14,7 +14,7 @@
 #import "UMSocialWechatHandler.h"
 
 //define
-#define WEB_URL @"http://aidenzou.github.io/Hybrid-APP/"
+#define WEB_URL @"http://aidenzou.github.io/Hybrid-APP/share.html"
 #define SCREEN_WIDTH            [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT           [[UIScreen mainScreen] bounds].size.height
 

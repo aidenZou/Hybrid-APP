@@ -12,7 +12,8 @@
         browser: {
             mobile: ua.match(/Mobile/i) !== null ? true : false,
             ios: ua.match(/iPhone|iPad|iPod/i) !== null ? true : false,
-            android: ua.match(/Android/i) !== null ? true : false
+            android: ua.match(/Android/i) !== null ? true : false,
+            youcai: ua.match(/youcai/i) !== null ? true : false
         }
     };
 

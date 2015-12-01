@@ -1,174 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>WebViewJavascriptBridge Demo</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="style/style.css">
-
-    <style type='text/css'>
-        html {
-            font-family: Helvetica;
-            color: #222;
-        }
-
-        h1 {
-            color: steelblue;
-            font-size: 24px;
-            margin-top: 24px;
-        }
-
-        button {
-            margin: 0 3px 10px;
-            font-size: 12px;
-        }
-
-        /*.btn{*/
-        /*background-color: green;*/
-        /*}*/
-
-        .logLine {
-            border-bottom: 1px solid #ccc;
-            padding: 4px 2px;
-            font-family: courier;
-            font-size: 11px;
-        }
-    </style>
+    <title>Web 页面</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="./style/weui.min.css"/>
+    <link rel="stylesheet" href="./style/example.css"/>
 </head>
 <body>
 
-<h1>WebViewJavascriptBridge Demo</h1>
-
-<div id='buttons'></div>
-<div id='log'></div>
-
-<div class="api_form">
-    <input class="btn btn_primary" type="button" id="shareBtn" value="分享Share"/>
-    <!--<button class="btn btn_primary" id="shareBtn">分享Share</button>-->
-</div>
+<!--<script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>-->
 
 <script>
-
-    var uniqueId = 1
-
-    function log(message, data) {
-        var log = document.getElementById('log')
-        var el = document.createElement('div')
-        el.className = 'logLine'
-        el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
-        if (log.children.length) {
-            log.insertBefore(el, log.children[0])
-        }
-        else {
-            log.appendChild(el)
-        }
+    function openApp() {
+        window.location.href = 'hybrid://hybrid.app.com';
     }
-
-    window.onerror = function (err) {
-        log('window.onerror: ' + err)
-    }
-
-    function connectWebViewJavascriptBridge(callback) {
-        if (window.WebViewJavascriptBridge) {
-            callback(WebViewJavascriptBridge)
-        } else {
-            document.addEventListener('WebViewJavascriptBridgeReady', function () {
-                callback(WebViewJavascriptBridge)
-            }, false)
-        }
-    }
-
-    connectWebViewJavascriptBridge(function (bridge) {
-
-        bridge.init(function (message, responseCallback) {
-            log('JS got a message', message)
-            var data = {'Javascript Responds': 'Wee!'}
-            log('JS responding with', data)
-            responseCallback(data)
-        })
-
-        bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
-
-            //alert('testJavascriptHandler');
-            //alert(data.foo);
-            console.log(data);
-
-            log('ObjC called testJavascriptHandler with', data)
-            var responseData = {'Javascript Says': 'Right back atcha!'}
-            log('JS responding with', responseData)
-            responseCallback(responseData)
-        })
-
-        // var button = document.getElementById('buttons').appendChild(document.createElement('button'))
-        // button.innerHTML = 'Send message to ObjC'
-        // button.onclick = function (e) {
-        //     e.preventDefault()
-        //     var data = 'Hello from JS button'
-        //     log('JS sending message', data)
-        //     bridge.send(data, function (responseData) {
-        //         log('JS got response', responseData)
-        //     })
-        // }
-
-        // document.body.appendChild(document.createElement('br'))
-
-        // var callbackButton = document.getElementById('buttons').appendChild(document.createElement('button'))
-        // callbackButton.innerHTML = 'Fire testObjcCallback'
-        // callbackButton.onclick = function (e) {
-        //     e.preventDefault()
-        //     log('JS calling handler "testObjcCallback"')
-        //     bridge.callHandler('testObjcCallback', {'foo': 'bar'}, function (response) {
-        //         log('JS got response', response)
-        //     })
-
-        //     bridge.callHandler('addCartCallback', {'id': 1, 'count': 2}, function (response) {
-
-        //         alert(response)
-        //         alert(response.key)
-
-        //         log('JS got response', response)
-        //     })
-        // }
-
-        //main();
-        document.getElementById('shareBtn').onclick = function (e) {
-            e.preventDefault()
-            log('JS calling handler "shareCallback"')
-
-            bridge.callHandler('shareCallback', {
-                'title': 'Hybrid-APP 分享功能演示',                                 // 分享标题
-                'desc': '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与',     // 分享描述
-                'link': 'https://github.com/aidenzou/Hybrid-APP',                 // 分享链接
-                'imgUrl': 'https://avatars1.githubusercontent.com/u/6814750',     // 分享图标
-            }, function (response) {
-                //alert(response)
-                //alert(response.key)
-                log('JS got response', response)
-            })
-        }
-    })
-
-//    function main() {
-//        //alert(document.getElementById('shareBtn'))
-//        // 分享
-//        document.getElementById('shareBtn').onclick = function (e) {
-//            e.preventDefault()
-//            log('JS calling handler "shareCallback"')
-//
-//            bridge.callHandler('shareCallback', {
-//                'title': 'Hybrid-APP 分享功能演示',                                 // 分享标题
-//                'desc': '简单Hybrid APP 的实现，web 与原生互相通信演示,欢迎你的参与',     // 分享描述
-//                'link': 'https://github.com/aidenzou/Hybrid-APP',                 // 分享链接
-//                'imgUrl': 'https://avatars1.githubusercontent.com/u/6814750',     // 分享图标
-//            }, function (response) {
-//                //alert(response)
-//                //alert(response.key)
-//                log('JS got response', response)
-//            })
-//        }
-//    }
-
 </script>
+
+<div class="container js_container">
+    <!--<div class="page">
+        <div class="hd">
+            <h1 class="page_title">WeUI</h1>
+
+            <p class="page_desc">为微信Web服务量身设计</p>
+        </div>
+        <div class="bd">
+            <div class="weui_cells weui_cells_access global_navs">
+                <a class="weui_cell js_cell" href="javascript:;" data-id="button">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_button.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Button</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="cell">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_cell.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Cell</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="toast">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_toast.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Toast</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="dialog">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_dialog.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Dialog</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="progress">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_button.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Progress</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="msg">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_msg.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Msg Page</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="article">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_article.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Article Page</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="actionSheet">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_actionSheet.png" class="icon_nav"
+                                                    alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>ActionSheet</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="icons">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_icons.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Icons</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>-->
+    <div class="page">
+        <div class="hd">
+            <h1 class="page_title">Link App Page</h1>
+        </div>
+        <div class="bd spacing">
+            <!--<a href="" class="weui_btn weui_btn_primary">按钮</a>-->
+            <a href="hybrid://hybrid.app.com" class="weui_btn weui_btn_primary">打开APP首页</a>
+            <a href="hybrid://hybrid.app.com?type=list" class="weui_btn weui_btn_primary">APP列表页</a>
+            <a href="hybrid://hybrid.app.com?type=detail&id=1" class="weui_btn weui_btn_primary">APP详情页(1)</a>
+            <a href="hybrid://hybrid.app.com?type=detail&id=5" class="weui_btn weui_btn_primary">APP详情页(5)</a>
+            <a href="javascript:;" class="weui_btn weui_btn_primary" onClick="openApp()">JS打开APP</a>
+            <br>
+            <a href="http://aidenzou.github.io/Hybrid-APP/share.html" class="weui_btn weui_btn_warn">分享测试页面</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

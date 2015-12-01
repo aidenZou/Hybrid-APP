@@ -3,7 +3,7 @@
 
 #### 标识:
 
-shareCallback
+~~shareCallback~~
 onShare
 
 #### 参数:

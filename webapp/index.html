@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Web 页面</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="./style/weui.min.css"/>
+    <link rel="stylesheet" href="./style/example.css"/>
+</head>
+<body>
+
+<!--<script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>-->
+
+<script>
+    function openApp() {
+        window.location.href = 'hybrid://hybrid.app.com';
+    }
+</script>
+
+<div class="container js_container">
+    <!--<div class="page">
+        <div class="hd">
+            <h1 class="page_title">WeUI</h1>
+
+            <p class="page_desc">为微信Web服务量身设计</p>
+        </div>
+        <div class="bd">
+            <div class="weui_cells weui_cells_access global_navs">
+                <a class="weui_cell js_cell" href="javascript:;" data-id="button">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_button.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Button</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="cell">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_cell.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Cell</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="toast">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_toast.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Toast</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="dialog">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_dialog.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Dialog</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="progress">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_button.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Progress</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="msg">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_msg.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Msg Page</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="article">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_article.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Article Page</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="actionSheet">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_actionSheet.png" class="icon_nav"
+                                                    alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>ActionSheet</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+                <a class="weui_cell js_cell" href="javascript:;" data-id="icons">
+                    <span class="weui_cell_hd"><img src="./images/icon_nav_icons.png" class="icon_nav" alt=""></span>
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>Icons</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>-->
+    <div class="page">
+        <div class="hd">
+            <h1 class="page_title">Link App Page</h1>
+        </div>
+        <div class="bd spacing">
+            <!--<a href="" class="weui_btn weui_btn_primary">按钮</a>-->
+            <a href="hybrid://hybrid.app.com" class="weui_btn weui_btn_primary">打开APP首页</a>
+            <a href="hybrid://hybrid.app.com?type=list" class="weui_btn weui_btn_primary">APP列表页</a>
+            <a href="hybrid://hybrid.app.com?type=detail&id=1" class="weui_btn weui_btn_primary">APP详情页(1)</a>
+            <a href="hybrid://hybrid.app.com?type=detail&id=5" class="weui_btn weui_btn_primary">APP详情页(5)</a>
+            <a href="javascript:;" class="weui_btn weui_btn_primary" onClick="openApp()">JS打开APP</a>
+            <br>
+            <a href="http://aidenzou.github.io/Hybrid-APP/share.html" class="weui_btn weui_btn_warn">分享测试页面</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

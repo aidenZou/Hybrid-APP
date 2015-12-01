@@ -4,6 +4,7 @@
 #### 标识:
 
 shareCallback
+onShare
 
 #### 参数:
 
@@ -15,3 +16,12 @@ shareCallback
 #### 支持结果反馈:
 
 Web端可以做分享成功发红包之类的下一步操作
+
+## 跳转 APP 指定页面
+
+#### hybrid://hybrid.app.com
+
+### 参数：
+
+- type：'detail'    // 跳转页面类型[如：'list'：列表页，'detail'：详情页]
+- id：1             // 标识[如：详情页 id]

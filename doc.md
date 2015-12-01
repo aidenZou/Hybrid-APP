@@ -4,6 +4,7 @@
 #### 标识:
 
 ~~shareCallback~~
+
 onShare
 
 #### 参数:
